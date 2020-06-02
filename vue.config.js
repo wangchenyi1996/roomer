@@ -1,9 +1,9 @@
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
-let publicPath = process.env.NODE_ENV === 'production' ? '/roomer/' : '/'
+// let publicPath = process.env.NODE_ENV === 'production' ? '/roomer/' : '/'
 module.exports = {
-    publicPath,
-    // publicPath: './', //解决 vue 打包后 dist下面的index.html 空白页页面
+    //publicPath,
+    publicPath: './', //解决 vue 打包后 dist下面的index.html 空白页页面
 
     devServer: {
         // port: 8080, // 端口号

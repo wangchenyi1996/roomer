@@ -58,7 +58,7 @@ export default {
     ...mapState("ziroom", ["userInfo"]),
     rightPhone() {
       //1、使用正则
-      // return this.tel.replace(/(\d{3})\d{4}(\d{4})/, '$1****$3')
+      // return this.tel.replace(/(\d{3})(\d{4})(\d{4})/, '$1****$3')
       //2、字符串截取
       // return this.tel.substr(0, 3) + "****" + this.tel.substr(7);
       if (this.userInfo.telphone) {

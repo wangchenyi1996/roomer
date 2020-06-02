@@ -16,7 +16,7 @@ Vue.use(Router)
 
 const router = new Router({
     linkActiveClass: 'active',
-    mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes: [
         ...homeRoute,
