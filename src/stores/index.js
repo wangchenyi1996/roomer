@@ -3,10 +3,33 @@ import Vuex from 'vuex'
 import ziroom from './ziroom'
 Vue.use(Vuex)
 
+import Cookies from "js-cookie";
+import {
+  getLanguage
+} from "@/i18n/index";
+
 import createPersistedState from "vuex-persistedstate"
 
-
 export default new Vuex.Store({
+  // 语言模块
+  state: {
+    language: getLanguage()    // 语言
+  },
+  actions: {
+    setLanguage({ commit }, language) {
+      commit("SET_LANGUAGE", language);
+    }
+  },
+
+  mutations: {
+    // 切换语言
+    SET_LANGUAGE: (state, language) => {
+      // console.log(language,state)
+      state.language = language;
+      Cookies.set("language", language);
+    }
+  },
+
   modules: {
     ziroom
   },
@@ -20,9 +43,9 @@ export default new Vuex.Store({
     reducer(val) {
       // console.log('vuex数据持久化：',val)
       return {
-         // 可以指定储存state中的数据
-         ziroom: {
-          city:val.ziroom.city,
+        // 可以指定储存state中的数据
+        ziroom: {
+          city: val.ziroom.city,
           userInfo: val.ziroom.userInfo,
           swiperList: val.ziroom.swiperList
         }

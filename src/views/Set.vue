@@ -16,9 +16,19 @@
         <img src="../assets/imgs/login/edit.png" class="edit-img" />
       </div>
     </div>
+  
     <div class="set-list">
+       <div class="set-item u-f u-f-sbc">
+        <span>{{ $t('setInfo.language') }}</span>
+        <div class="u-f u-f-ajc label">
+          <span @click="open1">{{lang}}</span>
+          <van-action-sheet v-model="show1" :actions="langArr" @select="onSelect2" />
+          <img src="../assets/imgs/login/r.png" />
+        </div>
+      </div>
+
       <div class="set-item u-f u-f-sbc">
-        <span>性别</span>
+        <span>{{ $t('setInfo.gender') }}</span>
         <div class="u-f u-f-ajc label">
           <span @click="open">{{sex}}</span>
           <van-action-sheet v-model="show" :actions="sexArr" @select="onSelect" />
@@ -27,7 +37,7 @@
       </div>
 
       <div class="set-item u-f u-f-sbc">
-        <span>星座</span>
+        <span>{{ $t('setInfo.constellation') }}</span>
         <div class="u-f u-f-ajc label">
           <span @click="showPicker = true">{{xz}}</span>
           <van-popup v-model="showPicker" position="bottom">
@@ -43,7 +53,7 @@
       </div>
 
       <div class="set-item u-f u-f-sbc" style="border:none">
-        <span>手机号</span>
+        <span>{{ $t('setInfo.mobile') }}</span>
         <div class="u-f u-f-ajc label" @click="changeTelphone">
           <span>18112646888</span>
           <img src="../assets/imgs/login/r.png" />
@@ -53,7 +63,7 @@
       <div class="bg"></div>
 
       <div class="set-item u-f u-f-sbc">
-        <span>清理缓存</span>
+        <span>{{ $t('setInfo.cleanCache') }}</span>
         <div class="u-f u-f-ajc label">
           <span @click="clearStorage">{{myStorage}}</span>
           <img src="../assets/imgs/login/r.png" />
@@ -61,20 +71,20 @@
       </div>
 
       <div class="set-item u-f u-f-sbc">
-        <span>关于蛋壳</span>
+        <span>{{ $t('setInfo.about') }}</span>
         <div class="u-f u-f-ajc label">
           <img src="../assets/imgs/login/r.png" />
         </div>
       </div>
       <div class="set-item u-f u-f-sbc">
-        <span>我要评价</span>
+        <span>{{ $t('setInfo.toRate') }}</span>
         <div class="u-f u-f-ajc label">
           <img src="../assets/imgs/login/r.png" />
         </div>
       </div>
 
       <div class="set-item u-f u-f-sbc" style="border:none;padding-bottom:10px;margin-top:10px">
-        <span>指纹解锁</span>
+        <span>{{ $t('setInfo.unLock') }}</span>
         <div class="u-f u-f-ajc label">
           <van-switch :value="checked" @input="onInput" active-color="#54cbcc" />
         </div>
@@ -92,6 +102,13 @@
 <script>
 import { pathToBase64, base64ToPath } from '@common/image-tools/index.js'
 import { mapActions, mapState } from "vuex";
+
+import Cookies from "js-cookie";
+// 设置vant的多语言
+import { Locale } from 'vant';
+import enUS from 'vant/lib/locale/lang/en-US';
+import zhCN from 'vant/lib/locale/lang/zh-CN';
+
 export default {
   name: "Set",
   data() {
@@ -102,16 +119,19 @@ export default {
       fileList: [],
       imgUrl: "",
       showImg: true,
-      sex: "未设置",
+      sex: Cookies.get("language")== 'zh' ? '未设置' : 'no set',
 
       show: false,
+      show1: false,
       sexArr: [{ name: "男" }, { name: "女" }],
 
-      xz: '未设置',
+      xz: Cookies.get("language")== 'zh' ? '未设置' : 'no set',
       showPicker: false,
       constellation: ['白羊座','金牛座','双子座','巨蟹座','狮子座','处女座','天秤座','天蝎座','射手座','摩羯座','水瓶座','双鱼座'],
 
-      myStorage:'10MB'
+      myStorage:'10MB',
+      lang:Cookies.get("language")== 'zh' ? '中文' : '英文',
+      langArr:[{name:'中文',id:'zh'},{name:'英文',id:'en'}]
 
     };
   },
@@ -195,8 +215,30 @@ export default {
         duration: 1500
       });
     },
+
+    // 选择语言
+    onSelect2(item){
+      this.show1 = false;
+      this.lang = item.name;
+      
+       if (item.id == "zh") {
+        this.$i18n.locale = "zh";
+        this.$store.dispatch("setLanguage", "zh");
+        // Cookies.set("language", item.id);
+        Locale.use('zh-CN', zhCN);
+      } else {
+        this.$i18n.locale = "en";
+        this.$store.dispatch("setLanguage", "en");
+        // Cookies.set("language", item.id);
+        Locale.use('en-US', enUS);
+      }
+    },
+
     open() {
       this.show = true;
+    },
+     open1() {
+      this.show1 = true;
     },
     onConfirm(xz) {
       this.xz = xz;
@@ -271,7 +313,7 @@ export default {
     }
   }
   .set-list {
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     .set-item {
       padding-bottom: 15px;
       margin-top: 20px;

@@ -4,6 +4,15 @@ import router from './routers'
 import store from './stores/'
 Vue.config.productionTip = false
 
+// 国际化  
+import i18n from "./i18n/index";
+import VueI18n from "vue-i18n";
+
+// 多语言
+Vue.use(VueI18n, {
+    i18n: (key, value) => i18n.t(key, value)
+});
+
 import FastClick from 'fastclick'
 // 引入fastclick并绑定到body 解决移动端点击响应延迟0.3s的问题
 if ('addEventListener' in document) {
@@ -29,6 +38,9 @@ import "./icons/index.js"
 import '@fonts/css/animate.css'
 import '@common/style.scss'
 
+// 全局引入rem
+// import '@/config/rem'
+
 // 引入滑动组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.min.css'
@@ -46,8 +58,12 @@ VueAMap.initAMapApiLoader({
     v: '1.4.4'
 });
 
+
+
+
 new Vue({
     router,
     store,
+    i18n,
     render: h => h(App)
 }).$mount('#app')

@@ -1,21 +1,21 @@
 <template>
   <div class="tabbar">
     <ul class="tab-list u-f u-f-asc">
-      <router-link to="/home" tag="li" class="tab-item u-f-c u-f-ajc" active-class="active" >
+      <router-link to="/home" tag="li" class="tab-item u-f-c" active-class="active" >
         <i class="iconfont icon-icon-home icon"></i>
-        <span class="tab-desc">{{ $t('tabbar.home') }}</span>
+        <span class="tab-desc">首页</span>
       </router-link>
-      <router-link to="/findHome" tag="li" class="tab-item u-f-c u-f-ajc" active-class="active">
+      <router-link to="/findHome" tag="li" class="tab-item u-f-c" active-class="active">
         <i class="iconfont icon-ziyuan icon"></i>
-        <span class="tab-desc">{{ $t('tabbar.findHome') }}</span>
+        <span class="tab-desc">找房</span>
       </router-link>
-      <router-link to="/delegate" tag="li" class="tab-item u-f-c u-f-ajc" active-class="active">
+      <router-link to="/delegate" tag="li" class="tab-item u-f-c" active-class="active">
         <i class="iconfont icon-tuoguan icon"></i>
-        <span class="tab-desc">{{ $t('tabbar.delegate') }}</span>
+        <span class="tab-desc">委托</span>
       </router-link>
-      <router-link to="/my" tag="li" class="tab-item u-f-c u-f-ajc" active-class="active">
+      <router-link to="/my" tag="li" class="tab-item u-f-c" active-class="active">
         <i class="iconfont icon-ren icon"></i>
-        <span class="tab-desc">{{ $t('tabbar.mine') }}</span>
+        <span class="tab-desc">我的</span>
       </router-link>
     </ul>
   </div>
@@ -23,7 +23,7 @@
 
 <script>
   export default {
-    name: "TabBar",
+    name: "TabBar"
   };
 </script>
 
