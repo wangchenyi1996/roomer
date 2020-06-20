@@ -57,6 +57,7 @@ const router = new Router({
 // })
 
 router.beforeEach((to, from, next) => {
+    // console.log('当前路由完全路径：',router.currentRoute.fullPath)
     // console.log(to,from)
     let flag = store.state.ziroom.userInfo
     // console.log('登陆判断：',flag)
@@ -65,7 +66,8 @@ router.beforeEach((to, from, next) => {
         if (flag && flag.isLogin) { //也可以用vuex来判断
             next()
         } else {
-            next('/login')
+            // next('/login')
+           next({ path: '/login', query: { toPath: router.currentRoute.fullPath } })
         }
     } else {
         if (flag && flag.isLogin) { //也可以用vuex来判断
