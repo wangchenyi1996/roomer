@@ -96,6 +96,9 @@ export default {
       return /^1(3|4|5|7|8|9)\d{9}$/.test(this.telphone);
     }
   },
+  created(){
+    console.log('路由参数',this.$route.query)
+  },
   methods: {
     ...mapActions("ziroom", ["saveUser"]),
     goHome() {
@@ -167,7 +170,8 @@ export default {
             faceImg:"http://lc-3resyvee.cn-n1.lcfile.com/a467b3c7d2f1f38538aa/dog.jpg"
           };
           this.saveUser(data);
-          this.$router.replace("/my");
+          // this.$router.replace("/my");
+          this.$router.replace(this.$route.query);
         }
       });
     }
