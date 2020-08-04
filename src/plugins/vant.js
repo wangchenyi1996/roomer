@@ -4,7 +4,7 @@
  * @Autor: 王强
  * @Date: 2020-05-13 12:05:47
  * @LastEditors: 王强
- * @LastEditTime: 2020-05-15 13:58:27
+ * @LastEditTime: 2020-06-10 13:38:29
  */
 import Vue from 'vue'
 
@@ -30,8 +30,9 @@ import {
     Picker,
     Popup,
     Loading,
-    Stepper
+    Stepper,
+    Search 
 } from 'vant';
 Vue.use(Button).use(Swipe).use(SwipeItem).use(Lazyload, { preLoad: 1, }).use(Dialog).use(Toast)
     .use(Tab).use(Tabs).use(Switch).use(Uploader).use(DropdownMenu).use(DropdownItem).use(TreeSelect).use(Divider)
-    .use(Checkbox).use(CheckboxGroup).use(ActionSheet).use(Picker).use(Popup).use(Loading).use(Stepper)
+    .use(Checkbox).use(CheckboxGroup).use(ActionSheet).use(Picker).use(Popup).use(Loading).use(Stepper).use(Search);

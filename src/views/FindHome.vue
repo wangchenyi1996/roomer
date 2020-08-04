@@ -173,10 +173,18 @@
         <div style="text-align:center;margin-bottom:10px" v-show="isLoading">
           <van-loading type="spinner" size="24px">拼命刷新中...</van-loading>
         </div>
-        <div class="room-list" v-for="(item,index) in roomList" :key="index">
-          <img v-if="index==8" src="../assets/imgs/findHome/home.png" />
-          <Room v-else :item="item" :index="index" />
+
+        <div v-show="isShowSkeleton">
+          <skeleton v-for="item in 3" :key="item" />
         </div>
+        
+        <div v-if="!isShowSkeleton">
+          <div class="room-list" v-for="(item,index) in roomList" :key="index">
+            <img v-if="index==8" src="../assets/imgs/findHome/home.png" />
+            <Room v-else :item="item" :index="index" />
+          </div>
+        </div>
+
         <div style="text-align:center;margin-top:10px" v-show="ismore">
           <van-loading type="spinner" size="24px">正在加载中...</van-loading>
         </div>
@@ -201,6 +209,8 @@
 <script>
 //引入自定义封装的better-scroll插件
 import WScroll from "@/components/WScroll/WScroll.vue";
+
+const skeleton = () => import("@/components/skeleton/FindHome.vue");
 
 import { mapActions, mapState } from "vuex";
 import TabBar from "@/components/TabBar.vue";
@@ -313,14 +323,18 @@ export default {
       valArr2: [],
       valArr3: [],
       valArr4: [],
-      valArr5: []
+      valArr5: [],
+
+      // 骨架屏
+      isShowSkeleton: true
     };
   },
   components: {
     TabBar,
     Room,
     Header,
-    WScroll
+    WScroll,
+    skeleton
   },
   computed: {
     ...mapState("ziroom", ["roomList"]),
@@ -628,22 +642,17 @@ export default {
       }
       this.roomlists = temp;
     }
-
   },
   mounted() {
-    // this.$nextTick(() => {
-      this.getRoomList();
-      // 1.图片加载完成的事件监听
-        this.$nextTick(() => {
-        this.$bus.$on("imgMoreLoad", () => {
-          this.$refs.scroll.refresh();
-          console.log("图片加载",this.$refs.scroll.scroll);
-        });
+    this.getRoomList();
+    // 1.图片加载完成的事件监听
+    this.$nextTick(() => {
+      this.$bus.$on("imgMoreLoad", () => {
+        this.$refs.scroll.refresh();
+        console.log("图片加载", this.$refs.scroll.scroll);
       });
-  },
-  activated() {
-    // console.log("activated");
-    
+      this.isShowSkeleton = false;
+    });
   }
 };
 </script>
@@ -783,7 +792,7 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-.content-scroll{
+.content-scroll {
   height: calc(100% - 185px);
   overflow: hidden;
 }

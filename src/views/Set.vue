@@ -95,6 +95,7 @@
       <div class="logout" @click="out">退出登录</div>
 
       <div class="bg"></div>
+
     </div>
   </div>
 </template>
