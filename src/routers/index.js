@@ -65,7 +65,8 @@ router.beforeEach((to, from, next) => {
         if (flag && flag.isLogin) { //也可以用vuex来判断
             next()
         } else {
-            next('/login')
+            // next('/login')
+            next({ path: '/login', query: { toPath: router.currentRoute.fullPath } })
         }
     } else {
         if (flag && flag.isLogin) { //也可以用vuex来判断
