@@ -167,7 +167,9 @@ export default {
             faceImg:"http://lc-3resyvee.cn-n1.lcfile.com/a467b3c7d2f1f38538aa/dog.jpg"
           };
           this.saveUser(data);
-          this.$router.replace("/my");
+          // this.$router.replace("/my");
+		      let path = this.$route.query || '/my'
+          this.$router.replace(path);
         }
       });
     }
